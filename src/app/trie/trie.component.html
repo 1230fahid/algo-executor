@@ -1,0 +1,17 @@
+<section class="forms">
+    <app-form (formSubmission)="onAdd()" [formGroup]="addedWordGroup" [action]="'Add Word:'" [properties]="getFormProperties('btn btn-success')" style="width: 32%; margin-right: 1%;"></app-form>
+    <app-form (formSubmission)="onSearch()" [formGroup]="searchWordGroup" [action]="'Search Word:'" [properties]="getFormProperties('btn btn-primary')" style="width: 32%; margin-right: 1%;"></app-form>
+    <app-form (formSubmission)="onDelete()" [formGroup]="deleteWordGroup" [action]="'Delete Word:'" [properties]="getFormProperties('btn btn-danger')" style="width: 33%; margin-right: 1%;"></app-form>
+</section>
+
+<section class="portrait">
+    <div class="bg bg-dark ide" style="display: flex; flex-direction: row; justify-content: space-evenly;">
+        <svg width="100%" height="100%" id="canvas" #svg>            
+            <g *ngFor="let node of trieNodeArray">
+                <circle *ngIf="afterView" [attr.cx]="node.xCoordinate" [attr.cy]="node.yCoordinate" r="30" stroke="white" stroke-width="3" [attr.fill]="node.color" filter="drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7))"></circle>
+                <text [attr.x]="node.xCoordinate" [attr.y]="node.yCoordinate" text-anchor="middle" stroke="white" stroke-width="2px" dy=".3em">{{ node.value }}</text>
+                <line stroke="white" stroke-width="2px" *ngIf="node.parent !== undefined" [attr.x1]="node.parent.xCoordinate + getParentXCoordinate(node.parent, node)" [attr.y1]="node.parent.yCoordinate + getParentYCoordinate(node.parent, node)" [attr.x2]="node.xCoordinate + getChildXCoordinate(node.parent, node)" [attr.y2]="node.yCoordinate + getChildYCoordinate(node.parent, node)"></line>
+            </g>
+        </svg>
+    </div>
+</section>
